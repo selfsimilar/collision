@@ -135,6 +135,27 @@ EOF,
             'Tests:    2 deprecated, 2 warnings, 1 risky, 1 incomplete, 2 notices, 1 todo, 1 skipped, 9 passed (16 assertions)',
             $output
         );
+
+        $this->assertConsoleOutputNotContainsString(
+            'Random Order Seed:',
+            $output
+        );
+    }
+
+    #[Test]
+    public function itHasRecapWithRandomOrderSeed(): void
+    {
+        $output = $this->runCollisionTests([
+            '--order-by=random',
+            '--random-order-seed=123',
+            '--exclude-group',
+            'fail,environmentTesting,environmentCustomVariables',
+        ]);
+
+        $this->assertConsoleOutputContainsString(
+            'Random Order Seed: 123',
+            $output
+        );
     }
 
     #[Test]
