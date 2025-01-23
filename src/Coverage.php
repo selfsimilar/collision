@@ -67,7 +67,7 @@ final class Coverage
      * Reports the code coverage report to the
      * console and returns the result in float.
      */
-    public static function report(OutputInterface $output, bool $hideFullCoverage): float
+    public static function report(OutputInterface $output, bool $hideFullCoverage = false): float
     {
         if (! file_exists($reportPath = self::getPath())) {
             if (self::usingXdebug()) {

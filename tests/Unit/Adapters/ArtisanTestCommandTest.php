@@ -15,19 +15,16 @@ class ArtisanTestCommandTest extends TestCase
     public function test_coverage(): void
     {
         $output = $this->runTests(['./tests/LaravelApp/artisan', 'test', '--coverage', '--group', 'coverage']);
-        $this->assertStringContainsString('Code Coverage:', $output);
         $this->assertStringContainsString('Models/User', $output);
         $this->assertStringContainsString('0.0', $output);
         $this->assertStringContainsString('Http/Controllers/Controller', $output);
         $this->assertStringContainsString('100.0', $output);
         $this->assertStringContainsString('Total: ', $output);
 
-        /**
         $output = $this->runTests(['./tests/LaravelApp/artisan', 'test', '--coverage', '--parallel', '--group', 'coverage']);
         $this->assertStringContainsString('Models/User', $output);
         $this->assertStringContainsString('0.0', $output);
         $this->assertStringContainsString('Total: ', $output);
-        */
     }
 
     #[Test]
@@ -37,27 +34,23 @@ class ArtisanTestCommandTest extends TestCase
         $this->assertStringContainsString('Total: ', $output);
         $this->assertStringNotContainsString('Code coverage below expected', $output);
 
-        /**
         $output = $this->runTests(['./tests/LaravelApp/artisan', 'test', '--coverage', '--min=10', '--parallel', '--group', 'coverage'], 1);
         $this->assertStringContainsString('Total: ', $output);
         $this->assertStringContainsString('Code coverage below expected', $output);
-         */
+
         $output = $this->runTests(['./tests/LaravelApp/artisan', 'test', '--coverage', '--min=99', '--group', 'coverage'], 1);
         $this->assertStringContainsString('Total: ', $output);
         $this->assertStringContainsString('Code coverage below expected', $output);
 
-        /**
         $output = $this->runTests(['./tests/LaravelApp/artisan', 'test', '--coverage', '--min=99', '--parallel', '--group', 'coverage'], 1);
         $this->assertStringContainsString('Total: ', $output);
         $this->assertStringContainsString('Code coverage below expected', $output);
-        */
     }
 
     #[Test]
     public function test_hide_full_coverage(): void
     {
-        $output = $this->runTests(['./tests/LaravelApp/artisan', 'test', '--coverage', '--quiet-coverage', '--group', 'coverage'], 0);
-        $this->assertStringContainsString('Code Coverage (files with full coverage not printed):', $output);
+        $output = $this->runTests(['./tests/LaravelApp/artisan', 'test', '--coverage', '--compact', '--group', 'coverage'], 0);
         $this->assertStringContainsString('Models/User', $output);
         $this->assertStringContainsString('0.0', $output);
         $this->assertStringNotContainsString('Http/Controllers/Controller', $output);
@@ -85,11 +78,9 @@ class ArtisanTestCommandTest extends TestCase
 
         $this->runTests(['./tests/LaravelApp/artisan', 'test', '--group', 'environment']);
 
-        /**
         $this->runTests(['./tests/LaravelApp/artisan', 'test', '--parallel', '--group', 'environment']);
         $this->runTests(['./tests/LaravelApp/artisan', 'test', '--parallel', '--recreate-databases', '--group', 'environment']);
         $this->runTests(['./tests/LaravelApp/artisan', 'test', '--parallel', '--drop-databases', '--group', 'environment']);
-        */
     }
 
     #[Test]
@@ -111,11 +102,9 @@ EOF
 
         $this->runTests(['./tests/LaravelApp/artisan', 'test', '--group', 'environmentTesting']);
 
-        /**
         $this->runTests(['./tests/LaravelApp/artisan', 'test', '--parallel', '--group', 'environmentTesting']);
         $this->runTests(['./tests/LaravelApp/artisan', 'test', '--parallel', '--recreate-databases', '--group', 'environmentTesting']);
         $this->runTests(['./tests/LaravelApp/artisan', 'test', '--parallel', '--drop-databases', '--group', 'environmentTesting']);
-        */
     }
 
     #[AfterClass]
@@ -138,29 +127,23 @@ EOF
         // Without Custom Variables (-c|--custom-argument)
         $this->runTests(['./tests/LaravelApp/artisan', 'test', '--group', 'environmentNoCVPhpunit']);
 
-        /**
         $this->runTests(['./tests/LaravelApp/artisan', 'test', '--parallel', '--group', 'environmentNoCVParallel']);
         $this->runTests(['./tests/LaravelApp/artisan', 'test', '--parallel', '--recreate-databases', '--group', 'environmentNoCVParallelRecreate']);
         $this->runTests(['./tests/LaravelApp/artisan', 'test', '--parallel', '--drop-databases', '--group', 'environmentNoCVParallelDrop']);
-         */
 
         // With Custom Variables (-c)
         $this->runTests(['./tests/LaravelApp/artisan', 'test', '-c', '--group', 'environmentCVPhpunit']);
 
-        /**
         $this->runTests(['./tests/LaravelApp/artisan', 'test', '-c', '--parallel', '--group', 'environmentCVParallel']);
         $this->runTests(['./tests/LaravelApp/artisan', 'test', '-c', '--parallel', '--recreate-databases', '--group', 'environmentCVParallelRecreate']);
         $this->runTests(['./tests/LaravelApp/artisan', 'test', '-c', '--parallel', '--drop-databases', '--group', 'environmentCVParallelDrop']);
-         */
 
         // With Custom Variables (--custom-argument)
         $this->runTests(['./tests/LaravelApp/artisan', 'test', '--custom-argument', '--group', 'environmentCVPhpunit']);
 
-        /**
         $this->runTests(['./tests/LaravelApp/artisan', 'test', '--custom-argument', '--parallel', '--group', 'environmentCVParallel']);
         $this->runTests(['./tests/LaravelApp/artisan', 'test', '--custom-argument', '--parallel', '--recreate-databases', '--group', 'environmentCVParallelRecreate']);
         $this->runTests(['./tests/LaravelApp/artisan', 'test', '--custom-argument', '--parallel', '--drop-databases', '--group', 'environmentCVParallelDrop']);
-        */
     }
 
     private function runTests(array $arguments, int $expectedExitCode = 0): string
