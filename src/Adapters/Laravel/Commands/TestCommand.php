@@ -37,7 +37,7 @@ class TestCommand extends Command
         {--compact : Indicates whether the compact printer should be used}
         {--coverage : Indicates whether code coverage information should be collected}
         {--min= : Indicates the minimum threshold enforcement for code coverage}
-        {--hide-full-coverage : Do not report any files where code coverage is 100%}
+        {--quiet-coverage : Do not report any files where code coverage is 100%}
         {--p|parallel : Indicates if the tests should run in parallel}
         {--profile : Lists top 10 slowest tests}
         {--recreate-databases : Indicates if the test databases should be re-created}
@@ -131,7 +131,7 @@ class TestCommand extends Command
                 $this->newLine();
             }
 
-            $hideFullCoverage = (bool) $this->option('hide-full-coverage');
+            $hideFullCoverage = (bool) $this->option('quiet-coverage');
             $coverage = Coverage::report($this->output, $hideFullCoverage);
 
             $exitCode = (int) ($coverage < $this->option('min'));
@@ -218,7 +218,7 @@ class TestCommand extends Command
                 && $option != '-q'
                 && $option != '--quiet'
                 && $option != '--coverage'
-                && $option != '--hide-full-coverage'
+                && $option != '--quiet-coverage'
                 && $option != '--compact'
                 && $option != '--profile'
                 && $option != '--ansi'
@@ -259,7 +259,7 @@ class TestCommand extends Command
                 && $option != '--ansi'
                 && $option != '--no-ansi'
                 && ! Str::startsWith($option, '--min')
-                && ! Str::startsWith($option, '--hide-full-coverage')
+                && ! Str::startsWith($option, '--quiet-coverage')
                 && ! Str::startsWith($option, '-p')
                 && ! Str::startsWith($option, '--parallel')
                 && ! Str::startsWith($option, '--recreate-databases')
