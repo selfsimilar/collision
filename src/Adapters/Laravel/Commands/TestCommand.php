@@ -258,6 +258,7 @@ class TestCommand extends Command
                 && $option != '--no-ansi'
                 && ! Str::startsWith($option, '--min')
                 && ! Str::startsWith($option, '-p')
+                && ! Str::startsWith($option, '--compact')
                 && ! Str::startsWith($option, '--parallel')
                 && ! Str::startsWith($option, '--recreate-databases')
                 && ! Str::startsWith($option, '--drop-databases')
