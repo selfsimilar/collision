@@ -56,7 +56,7 @@ class ArtisanTestCommandTest extends TestCase
     #[Test]
     public function testHideFullCoverage(): void
     {
-        $output = $this->runTests(['./tests/LaravelApp/artisan', 'test', '--coverage', '--hide-full-coverage', '--group', 'coverage'], 0);
+        $output = $this->runTests(['./tests/LaravelApp/artisan', 'test', '--coverage', '--quiet-coverage', '--group', 'coverage'], 0);
         $this->assertStringContainsString('Code Coverage (files with full coverage not printed):', $output);
         $this->assertStringContainsString('Models/User', $output);
         $this->assertStringContainsString('0.0', $output);
