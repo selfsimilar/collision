@@ -11,13 +11,6 @@ use Symfony\Component\Process\Process;
 
 class PhpunitTest extends TestCase
 {
-    public function setUp(): void
-    {
-        if (PHP_VERSION_ID >= 80400) {
-            $this->markTestSkipped('Test skipped on PHP 8.4');
-        }
-    }
-
     #[Test]
     public function itIsAPrinter(): void
     {
@@ -165,13 +158,13 @@ EOF,
   at tests/LaravelApp/tests/Unit/ExampleTest.php:15
      11▕ {
      12▕     #[Group('fail')]
-     13▕     public function testFailExample()
+     13▕     public function test_fail_example()
      14▕     {
   ➜  15▕         $code
      16▕     }
      17▕$space
      18▕     #[Group('todo')]
-     19▕     public function testTodoExample()
+     19▕     public function test_todo_example()
 
   1   tests/LaravelApp/tests/Unit/ExampleTest.php:15
 

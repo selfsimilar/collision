@@ -11,15 +11,8 @@ use Symfony\Component\Process\Process;
 
 class ArtisanTestCommandTest extends TestCase
 {
-    public function setUp(): void
-    {
-        if (PHP_VERSION_ID >= 80400) {
-            $this->markTestSkipped('Test skipped on PHP 8.4');
-        }
-    }
-
     #[Test]
-    public function testCoverage(): void
+    public function test_coverage(): void
     {
         $output = $this->runTests(['./tests/LaravelApp/artisan', 'test', '--coverage', '--group', 'coverage']);
         $this->assertStringContainsString('Models/User', $output);
@@ -35,7 +28,7 @@ class ArtisanTestCommandTest extends TestCase
     }
 
     #[Test]
-    public function testMinCoverage(): void
+    public function test_min_coverage(): void
     {
         $output = $this->runTests(['./tests/LaravelApp/artisan', 'test', '--coverage', '--min=0', '--group', 'coverage'], 0);
         $this->assertStringContainsString('Total: ', $output);
@@ -58,14 +51,14 @@ class ArtisanTestCommandTest extends TestCase
     }
 
     #[Test]
-    public function testAnsi(): void
+    public function test_ansi(): void
     {
         $this->runTests(['./tests/LaravelApp/artisan', 'test', '--ansi'], 1);
         $this->runTests(['./tests/LaravelApp/artisan', 'test', '--no-ansi'], 1);
     }
 
     #[Test]
-    public function testEnv(): void
+    public function test_env(): void
     {
         $this->runTests([
             './vendor/bin/pest',
@@ -85,7 +78,7 @@ class ArtisanTestCommandTest extends TestCase
     }
 
     #[Test]
-    public function testEnvTesting(): void
+    public function test_env_testing(): void
     {
         file_put_contents(__DIR__.'/../../../tests/LaravelApp/.env.testing', <<<'EOF'
 VAR_IN_DOT_ENV_TESTING=VAL_IN_DOT_ENV_TESTING
@@ -117,7 +110,7 @@ EOF
     }
 
     #[Test]
-    public function testExtendableCustomVariables(): void
+    public function test_extendable_custom_variables(): void
     {
         $this->runTests([
             './vendor/bin/pest',
@@ -184,7 +177,7 @@ EOF;
     }
 
     #[Test]
-    public function testProfile(): void
+    public function test_profile(): void
     {
         $output = $this->runTests([
             './vendor/bin/pest',
