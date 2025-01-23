@@ -69,14 +69,6 @@ final class Coverage
      */
     public static function report(OutputInterface $output, bool $hideFullCoverage): float
     {
-        $filesExcluded = $hideFullCoverage ? ' (files with full coverage not printed)' : '';
-        renderUsing($output);
-        render(<<<HTML
-            <div class="mx-2">
-                <span class="mb-1 font-bold">Code Coverage{$filesExcluded}:</span>
-            </div>
-        HTML);
-
         if (! file_exists($reportPath = self::getPath())) {
             if (self::usingXdebug()) {
                 $output->writeln(
